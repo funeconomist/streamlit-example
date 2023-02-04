@@ -1,38 +1,77 @@
-from collections import namedtuple
+import numpy as np
 import altair as alt
-import math
 import pandas as pd
 import streamlit as st
 
-"""
-# Welcome to Streamlit!
+import streamlit as st
+from datetime import time, datetime
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+st.header('st.slider')
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+# Example 1
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+st.subheader('Slider')
 
+age = st.slider('How old are you?', 0, 130, 25)
+st.write("I'm ", age, 'years old')
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+# Example 2
 
-    Point = namedtuple('Point', 'x y')
-    data = []
+st.subheader('Range slider')
 
-    points_per_turn = total_points / num_turns
+values = st.slider(
+     'Select a range of values',
+     0.0, 100.0, (25.0, 75.0))
+st.write('Values:', values)
 
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
+# Example 3
 
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+st.subheader('Range time slider')
+
+appointment = st.slider(
+     "Schedule your appointment:",
+     value=(time(11, 30), time(12, 45)))
+st.write("You're scheduled for:", appointment)
+
+# Example 4
+
+st.subheader('Datetime slider')
+
+start_time = st.slider(
+     "When do you start?",
+     value=datetime(2020, 1, 1, 9, 30),
+     format="MM/DD/YY - hh:mm")
+st.write("Start time:", start_time)
+
+st.header('st.write')
+
+# Example 1
+
+st.write('Hello, *World!* :sunglasses:')
+
+# Example 2
+
+st.write(1234)
+
+# Example 3
+
+df = pd.DataFrame({
+     'first column': [1, 2, 3, 4],
+     'second column': [10, 20, 30, 40]
+     })
+st.write(df)
+
+# Example 4
+
+st.write('Below is a DataFrame:', df, 'Above is a dataframe.')
+
+# Example 5
+
+df2 = pd.DataFrame(
+     np.random.randn(200, 3),
+     columns=['a', 'b', 'c'])
+
+c = alt.Chart(df2).mark_circle().encode(
+     x='a', y='b', size='c', color='c', tooltip=['a', 'b', 'c'])
+st.write(c)
+
