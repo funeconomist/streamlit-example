@@ -1,20 +1,28 @@
-
 import streamlit as st
-import pandas as pd
-import numpy as np
 
-st.header('Line chart')
+st.header('st.checkbox')
 
-chart_data = pd.DataFrame(
-     np.random.randn(20, 3),
-     columns=['a', 'b', 'c'])
+st.write ('What would you like to order?')
 
-st.line_chart(chart_data)
+icecream = st.checkbox('Ice cream')
+coffee = st.checkbox('Coffee')
+cola = st.checkbox('Cola')
 
-st.header('st.selectbox')
+if icecream:
+     st.write("Great! Here's some more 🍦")
 
-option = st.selectbox(
-     'What is your favorite color?',
-     ('Blue', 'Red', 'Green'))
+if coffee: 
+     st.write("Okay, here's some coffee ☕")
 
-st.write('Your favorite color is ', option)
+if cola:
+     st.write("Here you go 🥤")
+
+
+st.header('st.multiselect')
+
+options = st.multiselect(
+     'What are your favorite colors',
+     ['Green', 'Yellow', 'Red', 'Blue'],
+     ['Yellow', 'Red'])
+
+st.write('You selected:', options)
